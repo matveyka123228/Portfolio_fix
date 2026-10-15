@@ -27,6 +27,107 @@
     --bs-primary-rgb: 12, 75, 51;
 }
 
+/* ---------- Тёмная тема ----------
+   Включается атрибутом data-bs-theme="dark" на <html> (ставится в base.html).
+   Стоит после :root, поэтому перекрывает светлые значения. */
+
+[data-bs-theme="dark"] {
+    --muted: #9db5a8;
+    --line: rgba(232, 241, 236, 0.16);
+
+    --bs-body-bg: #0b1510;
+    --bs-body-color: #e8f1ec;
+    --bs-body-color-rgb: 232, 241, 236;
+    --bs-light-rgb: 11, 21, 16;
+    --bs-primary: #ffd43b;
+    --bs-primary-rgb: 255, 212, 59;
+}
+
+[data-bs-theme="dark"] .card {
+    --bs-card-bg: #13241b;
+}
+
+[data-bs-theme="dark"] header.navbar {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-bs-theme="dark"] a:focus-visible,
+[data-bs-theme="dark"] .btn:focus-visible {
+    outline-color: var(--yellow);
+}
+
+[data-bs-theme="dark"] main hr {
+    background: var(--yellow);
+}
+
+[data-bs-theme="dark"] img.rounded-circle {
+    border-color: #e8f1ec;
+}
+
+[data-bs-theme="dark"] .btn-primary {
+    --bs-btn-border-color: var(--yellow);
+    --bs-btn-hover-bg: var(--green);
+    --bs-btn-hover-border-color: var(--yellow);
+    --bs-btn-active-bg: var(--green);
+    --bs-btn-active-border-color: var(--yellow);
+}
+
+/* Плавная смена цветов при переключении темы */
+body,
+.card,
+body > footer {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ---------- Кнопка переключения темы ---------- */
+
+header.navbar .navbar-nav {
+    align-items: center;
+}
+
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.theme-toggle:hover {
+    color: var(--yellow);
+    border-color: var(--yellow);
+}
+
+.theme-toggle:focus-visible {
+    outline: 3px solid var(--yellow);
+    outline-offset: 3px;
+}
+
+.theme-toggle svg {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+/* В светлой теме показываем луну (нажми, чтобы стало темно), в тёмной - солнце */
+.theme-toggle .icon-sun {
+    display: none;
+}
+
+[data-bs-theme="dark"] .theme-toggle .icon-sun {
+    display: block;
+}
+
+[data-bs-theme="dark"] .theme-toggle .icon-moon {
+    display: none;
+}
+
 ::selection {
     background: var(--yellow);
     color: var(--ink);
@@ -262,6 +363,28 @@ main hr {
     content: " / 5";
     font-weight: 500;
     opacity: 0.65;
+}
+
+/* ---------- Появление элементов ---------- */
+
+/* Скрываем только если JS работает (класс .js ставится в <head> base.html) */
+.js .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .js .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
 }
 
 /* ---------- Footer ---------- */
